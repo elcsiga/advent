@@ -33,6 +33,13 @@
 
             font-family: 'Mountains of Christmas', cursive;
             font-size: 20px;
+
+            -webkit-user-select: none;
+            /* Safari */
+            -ms-user-select: none;
+            /* IE 10 and IE 11 */
+            user-select: none;
+            /* Standard syntax */
         }
 
         .container {
@@ -72,6 +79,8 @@
             right: 20px;
             text-align: center;
 
+            pointer-events: none;
+
             color: white;
             opacity: 0;
             transition: opacity ease-out 2s;
@@ -83,6 +92,8 @@
             left: 20px;
             right: 20px;
             text-align: center;
+
+            pointer-events: none;
 
             color: white;
         }
@@ -96,6 +107,7 @@
             opacity: 0;
             transition: opacity ease-out 2s;
         }
+
         .tomorrow {
             opacity: 0;
             transition: opacity ease-out 2s;
