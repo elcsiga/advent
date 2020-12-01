@@ -10,8 +10,6 @@
           content='IE=edge'>
     <META NAME='Description'
           content='Advent'>
-    <meta name='keywords'
-          content='dom, pan, zoom' />
     <meta name='author'
           content='elcsiga'>
     <meta name='title'
@@ -34,12 +32,11 @@
             font-family: 'Mountains of Christmas', cursive;
             font-size: 20px;
 
+            color: white;
+
             -webkit-user-select: none;
-            /* Safari */
             -ms-user-select: none;
-            /* IE 10 and IE 11 */
             user-select: none;
-            /* Standard syntax */
         }
 
         .container {
@@ -68,7 +65,7 @@
             position: absolute;
             bottom: 0;
             right: 0;
-            right: 0;
+            left: 0;
             width: 100%;
         }
 
@@ -78,12 +75,19 @@
             left: 20px;
             right: 20px;
             text-align: center;
-
             pointer-events: none;
 
-            color: white;
             opacity: 0;
             transition: opacity ease-out 2s;
+        }
+
+        .language {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            text-align: right;
+            font-size: 16px;
+            cursor: pointer;
         }
 
         .footer {
@@ -94,8 +98,6 @@
             text-align: center;
 
             pointer-events: none;
-
-            color: white;
         }
 
         .title {
@@ -125,6 +127,11 @@
             left: 136.4px;
             width: 24px;
         }
+
+        .en,
+        .hu {
+            display: none;
+        }
     </style>
 </head>
 
@@ -143,19 +150,34 @@
     </div>
     <div class="header">
         <div class="title">Advent 2020</div>
-        Find and lighten the rooms!
+        <span class="en">Zoom in and lighten the rooms!</span>
+        <span class="hu">Nagyíts és világítsd ki a szobákat!</span>
     </div>
 
     <div class="footer">
         <div class="date">Dec 1</div>
-        <div class="tomorrow">Come back tomorrow <br /> and find more rooms!</div>
+        <div class="tomorrow">
+            <div class="en">
+                Come back tomorrow <br /> and find more!
+            </div>
+            <div class="hu">
+                Találhatsz még... <br /> gyere vissza holnap!
+            </div>
+        </div>
+    </div>
+
+    <div class="language">
+        <span onclick="setLanguage('en')"
+              ontouchstart="setLanguage('en')">EN</span>
+        <span onclick="setLanguage('hu')"
+              ontouchstart="setLanguage('hu')">HU</span>
     </div>
 
     <script src='https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js'></script>
     <script>
-        var zoomable = document.querySelector('.zoomable');
+        const bell = new Audio('bell.mp3');
 
-        panzoom(zoomable, {
+        panzoom(document.querySelector('.zoomable'), {
             maxZoom: 20,
             minZoom: 1,
             smoothScroll: false
@@ -182,9 +204,34 @@
                     tomorrow.style.opacity = 1;
                 }
 
+                setTimeout(() => {
+                    try {
+                        bell.play();
+                    } catch (e) { }
+                }, 300);
+
                 day++;
             }
         }
+
+        const setLanguage = (lang) => {
+            const showHide = (className, display) => {
+                const elements = document.querySelectorAll('.' + className);
+                for (let i = 0, il = elements.length; i < il; i++) {
+                    elements[i].style.display = display;
+                }
+            }
+            showHide(lang === 'en' ? 'hu' : 'en', "none");
+            showHide(lang, 'block');
+        }
+
+        let lang = 'en';
+        try {
+            if ((navigator.language || navigator.userLanguage).toLowerCase().startsWith('hu')) {
+                lang = 'hu';
+            }
+        } catch (e) { }
+        setLanguage(lang);
 
     </script>
 </body>
