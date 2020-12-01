@@ -143,9 +143,7 @@
                  src="kalendarium.svg" />
 
             <img class="room"
-                 src="rooms/1.png"
-                 onclick="lighten(1)"
-                 ontouchstart="lighten(1)" />
+                 src="rooms/1.png" />
         </div>
     </div>
     <div class="header">
@@ -177,6 +175,32 @@
     <script>
         const bell = new Audio('bell.mp3');
 
+        let touchStart = { x: 0, y: 0 };
+        const getPos = (e) => {
+            const evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent;
+            const touch = evt.touches[0] || evt.changedTouches[0];
+            return {
+                x: touch.pageX,
+                y: touch.pageY
+            };
+        }
+
+        const rooms = document.querySelectorAll('.room');
+        for (let i = 0, il = rooms.length; i < il; i++) {
+            rooms[i].onclick = () => lighten(i + 1, rooms[i]);
+            rooms[i].ontouchstart = (e) => {
+                touchStart = getPos(e);
+            };
+            rooms[i].ontouchend = (e) => {
+                const touchEnd = getPos(e);
+                const xx = touchStart.x - touchEnd.x;
+                const yy = touchStart.y - touchEnd.y;
+                if (xx * xx + yy * yy < 13*15) {
+                    lighten(i + 1, rooms[i]);
+                }
+            };
+        }
+
         panzoom(document.querySelector('.zoomable'), {
             maxZoom: 20,
             minZoom: 1,
@@ -190,10 +214,9 @@
 
         let day = 1;
         const maxday = 1;
-        const lighten = (r) => {
+        const lighten = (r, e) => {
             if (day === r) {
-                const room = document.querySelector('.room:nth-of-type(' + (r + 1) + ')');
-                room.style.opacity = 1;
+                e.style.opacity = 1;
 
                 const date = document.querySelector('.date');
                 date.innerHTML = "Dec " + day;
