@@ -119,7 +119,6 @@
             position: absolute;
             opacity: 0;
             transition: opacity ease-out 2s;
-            cursor: pointer;
         }
 
         .room:nth-of-type(2) {
@@ -175,8 +174,8 @@
     <script>
         const bell = new Audio('bell.mp3');
 
-        let touchStart = { x: 0, y: 0 };
-        const getPos = (e) => {
+        let lastPos = { x: 0, y: 0 };
+        const getTouchPos = (e) => {
             const evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent;
             const touch = evt.touches[0] || evt.changedTouches[0];
             return {
@@ -184,18 +183,32 @@
                 y: touch.pageY
             };
         }
+        const getClickPos = (e) => ({
+            x: e.clientX,
+            y: e.clientY
+        });
+
+        const d2 = (p1, p2) => {
+            const xx = p1.x - p2.x;
+            const yy = p1.y - p2.y;
+            return xx * xx + yy * yy;
+        }
 
         const rooms = document.querySelectorAll('.room');
         for (let i = 0, il = rooms.length; i < il; i++) {
-            rooms[i].onclick = () => lighten(i + 1, rooms[i]);
             rooms[i].ontouchstart = (e) => {
-                touchStart = getPos(e);
+                lastPos = getTouchPos(e);
             };
             rooms[i].ontouchend = (e) => {
-                const touchEnd = getPos(e);
-                const xx = touchStart.x - touchEnd.x;
-                const yy = touchStart.y - touchEnd.y;
-                if (xx * xx + yy * yy < 13*15) {
+                if (d2(lastPos, getTouchPos(e)) < 15 * 15) {
+                    lighten(i + 1, rooms[i]);
+                }
+            };
+            rooms[i].onmousedown = (e) => {
+                touchStart = getClickPos(e);
+            };
+            rooms[i].onmouseup = (e) => {
+                if (d2(touchStart, getClickPos(e)) < 5 * 5) {
                     lighten(i + 1, rooms[i]);
                 }
             };
