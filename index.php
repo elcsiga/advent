@@ -117,7 +117,7 @@
 
         .room {
             position: absolute;
-            opacity: 0;
+            opacity: .08;
             transition: opacity ease-out 2s;
         }
 
@@ -127,9 +127,30 @@
             width: 24px;
         }
 
+        .room:nth-of-type(3) {
+            top: 201px;
+            left: 248px;
+            width: 23px;
+        }
+
+        .room:nth-of-type(4) {
+            top: 267px;
+            left: 162px;
+            width: 24px;
+        }
+
         .en,
         .hu {
             display: none;
+        }
+
+        .map {
+            position: absolute;
+            top: 106px;
+            left: 121px;
+            width: 168px;
+            opacity: .1;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -143,6 +164,14 @@
 
             <img class="room"
                  src="rooms/1.png" />
+            <img class="room"
+                 src="rooms/2.png" />
+            <!--<img class="room"
+                 src="rooms/3.png" />-->
+
+
+            <!--<img class="map"
+                 src="rooms/map.png" />-->
         </div>
     </div>
     <div class="header">
@@ -152,7 +181,6 @@
     </div>
 
     <div class="footer">
-        <div class="date">Dec 1</div>
         <div class="tomorrow">
             <div class="en">
                 Come back tomorrow <br /> and find more!
@@ -161,6 +189,7 @@
                 Találhatsz még... <br /> gyere vissza holnap!
             </div>
         </div>
+        <div class="date">Dec 1</div>
     </div>
 
     <div class="language">
@@ -169,6 +198,7 @@
         <span onclick="setLanguage('hu')"
               ontouchstart="setLanguage('hu')">HU</span>
     </div>
+
 
     <script src='https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js'></script>
     <script>
@@ -208,7 +238,7 @@
                 touchStart = getClickPos(e);
             };
             rooms[i].onmouseup = (e) => {
-                if (d2(touchStart, getClickPos(e)) < 5 * 5) {
+                if (d2(touchStart, getClickPos(e)) < 15 * 15) {
                     lighten(i + 1, rooms[i]);
                 }
             };
@@ -226,7 +256,7 @@
         }, 2000);
 
         let day = 1;
-        const maxday = 1;
+        const maxday = 2;
         const lighten = (r, e) => {
             if (day === r) {
                 e.style.opacity = 1;
@@ -239,14 +269,22 @@
                     const tomorrow = document.querySelector('.tomorrow');
                     tomorrow.style.opacity = 1;
                 }
+                day++;
 
                 setTimeout(() => {
                     try {
+                        bell.currentTime = 0;
                         bell.play();
                     } catch (e) { }
                 }, 300);
-
-                day++;
+            } else {
+                if (r > day) {
+                    const rooms = document.querySelectorAll('.room');
+                    for (let i = 0, il = rooms.length; i < il; i++) {
+                        rooms[i].style.opacity = 0.05;
+                    }
+                    day = 1;
+                }
             }
         }
 
