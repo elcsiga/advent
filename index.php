@@ -139,6 +139,18 @@
             width: 24px;
         }
 
+        .room:nth-of-type(5) {
+            top: 306px;
+            left: 131.5px;
+            width: 29px;
+        }
+
+        .room:nth-of-type(6) {
+            top: 309px;
+            left: 219px;
+            width: 24px;
+        }
+
         .en,
         .hu {
             display: none;
@@ -146,6 +158,7 @@
 
         .map {
             position: absolute;
+            display: none;
             top: 106px;
             left: 121px;
             width: 168px;
@@ -169,8 +182,13 @@
             <img class="room"
                  src="rooms/3.png" />
 
-            <!--<img class="map"
-                 src="rooms/map.png" />-->
+            <img class="room"
+                 src="rooms/4.png" />
+            <!--<img class="room"
+                 src="rooms/5.png" />-->
+
+            <img class="map"
+                 src="rooms/map.png" />
         </div>
     </div>
     <div class="header">
@@ -255,7 +273,7 @@
         }, 2000);
 
         let day = 1;
-        const maxday = 3;
+        const maxday = 4;
         const lighten = (r, e) => {
             if (day === r) {
                 e.style.opacity = 1;
@@ -280,7 +298,7 @@
                 if (r > day) {
                     const rooms = document.querySelectorAll('.room');
                     for (let i = 0, il = rooms.length; i < il; i++) {
-                        rooms[i].style.opacity = 0.05;
+                        rooms[i].style.opacity = 0.08;
                     }
                     day = 1;
                 }
