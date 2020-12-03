@@ -166,9 +166,8 @@
                  src="rooms/1.png" />
             <img class="room"
                  src="rooms/2.png" />
-            <!--<img class="room"
-                 src="rooms/3.png" />-->
-
+            <img class="room"
+                 src="rooms/3.png" />
 
             <!--<img class="map"
                  src="rooms/map.png" />-->
@@ -256,7 +255,7 @@
         }, 2000);
 
         let day = 1;
-        const maxday = 2;
+        const maxday = 3;
         const lighten = (r, e) => {
             if (day === r) {
                 e.style.opacity = 1;
