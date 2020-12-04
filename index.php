@@ -1,1 +1,1 @@
-<?php include date('d').'html';?>
+<?php include date('d').'.html';?>
