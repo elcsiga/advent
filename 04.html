@@ -287,7 +287,7 @@
                 updateDate()
                 playBell();
             } else {
-                if (r > day + 1) { // wrong room
+                if (day > 0 && r > day + 1) { // wrong room
                     lightenRoom(day, false);
                     day--;
                     updateDate();
