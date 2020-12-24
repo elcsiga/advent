@@ -169,6 +169,103 @@
             width: 27px;
         }
 
+        .room:nth-of-type(10) {
+            top: 147.5px;
+            left: 245px;
+            width: 27px;
+        }
+
+        .room:nth-of-type(11) {
+            top: 220px;
+            left: 136px;
+            width: 23px;
+        }
+
+        .room:nth-of-type(12) {
+            top: 179px;
+            left: 248px;
+            width: 23px;
+        }
+
+        .room:nth-of-type(13) {
+            top: 245.5px;
+            left: 136.5px;
+            width: 21.5px;
+        }
+
+        .room:nth-of-type(14) {
+            top: 180px;
+            left: 164px;
+            width: 48px;
+        }
+
+        .room:nth-of-type(15) {
+            top: 308px;
+            left: 163px;
+            width: 51px;
+        }
+
+        .room:nth-of-type(16) {
+            top: 223px;
+            left: 219px;
+            width: 50px;
+        }
+
+        .room:nth-of-type(17) {
+            top: 181px;
+            left: 219px;
+            width: 21.5px;
+        }
+
+        .room:nth-of-type(18) {
+            top: 179px;
+            left: 136px;
+            width: 23px;
+        }
+
+        .room:nth-of-type(19) {
+            top: 270px;
+            left: 247px;
+            width: 19px;
+        }
+
+        .room:nth-of-type(20) {
+            top: 199px;
+            left: 136px;
+            width: 23px;
+        }
+
+        .room:nth-of-type(21) {
+            top: 246px;
+            left: 162px;
+            width: 24px;
+        }
+
+        .room:nth-of-type(22) {
+            top: 246px;
+            left: 247px;
+            width: 19px;
+        }
+
+        .room:nth-of-type(23) {
+            top: 288px;
+            left: 162px;
+            width: 22px;
+
+        }
+
+        .room:nth-of-type(24) {
+            top: 288px;
+            left: 136px;
+            width: 22px;
+        }
+
+        .room:nth-of-type(25) {
+            top: 245px;
+            left: 192px;
+            width: 50px;
+        }
+
         .en,
         .hu {
             display: none;
@@ -194,39 +291,71 @@
                  src="kalendarium.svg" />
 
             <img class="room"
-                 src="rooms/1.png" />
+                 src="room/1.png" />
             <img class="room"
-                 src="rooms/2.png" />
+                 src="room/2.png" />
             <img class="room"
-                 src="rooms/3.png" />
+                 src="room/3.png" />
             <img class="room"
-                 src="rooms/4.png" />
+                 src="room/4.png" />
             <img class="room"
-                 src="rooms/5.png" />
+                 src="room/5.png" />
             <img class="room"
-                 src="rooms/6.png" />
+                 src="room/6.png" />
             <img class="room"
-                 src="rooms/7.png" />
+                 src="room/7.png" />
             <img class="room"
-                 src="rooms/8.png" />
+                 src="room/8.png" />
+            <img class="room"
+                 src="room/9.png" />
+            <img class="room"
+                 src="room/10.png" />
+            <img class="room"
+                 src="room/11.png" />
+            <img class="room"
+                 src="room/12.png" />
+            <img class="room"
+                 src="room/13.png" />
+            <img class="room"
+                 src="room/14.png" />
+            <img class="room"
+                 src="room/15.png" />
+            <img class="room"
+                 src="room/16.png" />
+            <img class="room"
+                 src="room/17.png" />
+            <img class="room"
+                 src="room/18.png" />
+            <img class="room"
+                 src="room/19.png" />
+            <img class="room"
+                 src="room/20.png" />
+            <img class="room"
+                 src="room/21.png" />
+            <img class="room"
+                 src="room/22.png" />
+            <img class="room"
+                 src="room/23.png" />
+            <img class="room"
+                 src="room/24.png" />
 
             <img class="map"
-                 src="rooms/map.png" />
+                 src="room/map.png" />
         </div>
     </div>
     <div class="header">
         <div class="title">Advent 2020</div>
-        <span class="en">Zoom in and lighten the rooms!</span>
-        <span class="hu">Nagyíts és világítsd ki a szobákat!</span>
+        <span class="en">Zoom in, listen  and lighten the rooms!</span>
+        <span class="hu">Nagyíts, fülelj és világítsd ki a szobákat!</span>
     </div>
 
     <div class="footer">
         <div class="tomorrow">
             <div class="en">
-                Come back tomorrow <br /> and find more!
+                We wish you a <br /> Merry Christmas!
             </div>
             <div class="hu">
-                Találhatsz még... <br /> gyere vissza holnap!
+                Boldog karácsonyt <br /> kívánunk sok szeretettel!
             </div>
         </div>
         <div class="date">Dec 1</div>
@@ -242,7 +371,17 @@
 
     <script src='https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js'></script>
     <script>
-        const bell = new Audio('bell.mp3');
+        const bells = [
+            new Audio('sound/bell0.mp3'),
+            new Audio('sound/bell1.mp3'),
+            new Audio('sound/bell2.mp3'),
+            new Audio('sound/bell3.mp3'),
+            new Audio('sound/bell4.mp3')
+        ];
+
+        const bell_wrong = new Audio('sound/wrong.mp3');
+
+        const music = new Audio('sound/music.mp3');
         const date = document.querySelector('.date');
 
         let lastPos = { x: 0, y: 0 };
@@ -297,33 +436,77 @@
         }, 2000);
 
         const updateDate = () => { date.style.opacity = 1; date.innerHTML = "Dec " + day; };
-        const lightenRoom = (r, l) => { rooms[r - 1].style.opacity = l ? 1 : 0.08; };
+        const lightenRoom = (r, l) => {
+            rooms[r - 1].style.opacity = l ? 1 : 0.08;
+            rooms[r - 1].style.pointerEvents = l ? 'none' : 'auto';
+        };
+
+
         const showFinalTExt = () => { document.querySelector('.tomorrow').style.opacity = 1; }
-        const playBell = () => {
+        const playBell = (d, i) => {
             setTimeout(() => {
-                try {
-                    bell.currentTime = 0;
-                    bell.play();
-                } catch (e) { }
-            }, 300);
+                const bell = bells[d];
+                bell.currentTime = 0;
+                bell.play();
+            }, 300 + i * 500);
         }
 
+        const path = [
+            { r: 1, d: [1] },
+            { r: 17, d: [1] },
+            { r: 19, d: [1] },
+            { r: 10, d: [1] },
+            { r: 12, d: [1] },
+            { r: 23, d: [3] },
+            { r: 22, d: [1] },
+            { r: 14, d: [3] },
+            { r: 5, d: [3] },
+            { r: 7, d: [0] },
+
+            { r: 18, d: [0, 0] },
+            { r: 15, d: [2] },
+            { r: 6, d: [0] },
+
+            { r: 13, d: [3] },
+            { r: 16, d: [0] },
+            { r: 8, d: [1,3] },
+            { r: 11, d: [0] },
+
+            { r: 9, d: [1,1] },
+            { r: 2, d: [1,1] },
+            { r: 21, d: [2,2] },
+
+            { r: 20, d: [1] },
+            { r: 3, d: [1,2,1] },
+            { r: 4, d: [3,0,3] },
+
+            { r: 24, d: [4] },
+
+        ]
         let day = 0;
         const lighten = (r) => {
-            if (r === day + 1) { // next room
-                lightenRoom(r, true);
-                if (day === rooms.length - 1) {
+
+            const next = path[day];
+
+            if (r === next.r) { // next room
+                lightenRoom(next.r, true);
+                if (day === 23) {
                     showFinalTExt();
+                    setTimeout(() => {
+                        music.play();
+                    }, 2000);
                 }
                 day++;
-                updateDate()
-                playBell();
+                updateDate();
+
+                next.d.forEach((d, i) => playBell(d, i));
+
             } else {
-                if (day > 0 && r > day + 1) { // wrong room
-                    lightenRoom(day, false);
-                    day--;
-                    updateDate();
-                }
+                bell_wrong.currentTime = 0;
+                bell_wrong.play();
+
+                path.forEach((r) => lightenRoom(r.r, false));
+                day = 0;
             }
         }
 
